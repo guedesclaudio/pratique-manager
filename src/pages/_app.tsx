@@ -1,6 +1,8 @@
 import type { AppProps } from "next/app";
 import { ThemeProvider, type DefaultTheme } from "styled-components";
 import GlobalStyle from "@/src/components/globalstyles";
+import { NextUIProvider } from "@nextui-org/react";
+import "../../styles.css";
 
 const theme: DefaultTheme = {
   colors: {
@@ -13,8 +15,13 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Component {...pageProps} />
+        <NextUIProvider>
+          {/* <GlobalStyle /> */}
+          <main className="light text-foreground bg-background">
+
+            <Component {...pageProps} />
+          </main>
+        </NextUIProvider>
       </ThemeProvider>
     </>
   );
