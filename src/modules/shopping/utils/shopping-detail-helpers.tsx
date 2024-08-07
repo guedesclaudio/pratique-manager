@@ -40,36 +40,44 @@ export function createEditAction(mode: string) {
 
 export function createRemoveAction({id, itens, setItens}: any) {
   return (
-    <Tooltip color="danger" content="Excluir item" onClick={() => handleRemoveItem(id, itens, setItens)}>
+    <Tooltip color="danger" content="Excluir itemm">
       <span className="text-lg text-danger cursor-pointer active:opacity-50">
-        <DeleteIcon />
+        <DeleteIcon onClick={() => handleRemoveItem(id, itens, setItens)} />
       </span>
     </Tooltip>
   );
 }
 
-export function createCell({columnKey, item, mode, itens, setItens}: any) {
+export function createCell({column, item, mode, itens, setItens, formData}: any) {
+  const { register } = formData;
+  const columnKey = column.uid;
   if (columnKey === "destiny") {
     return (
       <TableCell>
         <div style={{display: "flex"}}>
-          <Input type="number" label="Bloco 1" placeholder="Bloco 1" value={"2"} disabled/>
-          <Input type="number" label="Bloco 2" placeholder="Bloco 2" value={"3"} disabled/>
-          <Input type="number" label="Estoque" placeholder="Estoque" value={"4"} disabled/>
+          <Input type="number" label="Bloco 1" {...register('quantityBloco1')}/>
+          <Input type="number" label="Bloco 2" {...register('quantityBloco2')}/>
+          <Input type="number" label="Estoque" {...register('quantityBloco3')}/>
         </div>
       </TableCell>
     )
   }
   return (
     <TableCell>
-      {columnKey !== "actions" ? <Input type="text" placeholder={item.placeholder} value={renderCell({item, columnKey, mode, itens, setItens})} disabled/> : renderCell({item, columnKey, mode, itens, setItens})}
+      {
+        columnKey !== "actions" ? 
+        <Input 
+        type="text" 
+        placeholder={column.placeholder} 
+        //value={renderCell({item, columnKey, mode, itens, setItens})}
+        {...register(columnKey)}
+        /> : 
+        renderCell({item, columnKey, mode, itens, setItens})
+      }
     </TableCell>
   )
 }
 
 export function handleRemoveItem(id: number, itens: any[], setItens: (value: React.SetStateAction<any[]>) => void) {
-  console.log(id)
-  console.log(itens)
-  console.log(setItens)
   setItens(itens.filter((item: any) => item.id !== id));
 };

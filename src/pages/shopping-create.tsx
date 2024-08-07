@@ -1,5 +1,6 @@
-import ShoppingCreate from "../modules/shopping/pages/shopping-create";
+import { ModeEnum } from "../modules/common/contracts/enums";
+import ShoppingDetail from "../modules/shopping/pages/shopping-detail";
 
 export default function ShoppingCreatePage() {
-    return <ShoppingCreate />
+    return <ShoppingDetail mode={ModeEnum.CREATE}/>
 }

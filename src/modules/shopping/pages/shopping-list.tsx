@@ -4,39 +4,8 @@ import Link from "next/link";
 import { DeleteIcon, EditIcon, EyeIcon, PlusIcon } from "@/src/common/components";
 import { shoopingListColumnNames } from "../utils";
 import styled from "styled-components";
-
-const users = [
-    {
-      id: 189,
-      storeName: "COFEUS",
-      totalValue: 123.98,
-      date: "05/06/2024",
-    },
-    {
-      id: 19889,
-      storeName: "COFEUS",
-      totalValue: 123.98,
-      date: "05/06/2024",
-    },
-    {
-      id: 547,
-      storeName: "COFEUS",
-      totalValue: 123.98,
-      date: "05/06/2024",
-    },
-    {
-      id: 26,
-      storeName: "COFEUS",
-      totalValue: 123.98,
-      date: "05/06/2024",
-    },
-    {
-      id: 36,
-      storeName: "COFEUS",
-      totalValue: 123.98,
-      date: "05/06/2024",
-    },
-];
+import { users } from "@/src/mock/shopping-mock";
+import { PageHeader } from "../../common/components";
 
 export default function ShoppingList() {
   const renderCell = React.useCallback((user: any, columnKey: any) => {
@@ -75,18 +44,14 @@ export default function ShoppingList() {
 
   return (
     <>
-      <Header>
-        <Title>Visualize suas compras</Title>
-        <Breadcrumbs>
-          <BreadcrumbItem>
-            <Link href={"home"}>Home</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem>Compras</BreadcrumbItem>
-        </Breadcrumbs>
-        <Button color="primary" endContent={<PlusIcon />}>
-          Adicionar uma nova compra
-        </Button>
-      </Header>
+      <PageHeader 
+        title="Visualize suas compras"
+        breadCrumbItens={[
+          { name: 'Home', route: 'home' }, 
+          { name: 'Compras', route: 'shopping-list' }
+        ]}
+        addButton={{ message: 'Adicionar uma nova compra', onClick: () => undefined }}
+      />
       
       <Table aria-label="Example table with custom cells">
         <TableHeader columns={shoopingListColumnNames}>
@@ -112,17 +77,3 @@ export default function ShoppingList() {
     </>
   );
 }
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding: 20px;
-`;
-
-const Title = styled.h1`
-  font-size: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: grey;
-`
